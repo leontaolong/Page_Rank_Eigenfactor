@@ -40,29 +40,26 @@ def normalize_matrix(matrix):
 
 
 def calc_pi(pi_vec, artical_vec, d, H):
-    # compute the tempVector (first part of pi^(k+1) formula)
-    tempVector = np.multiply(ALPHA_CONST, H)
-    tempVector = np.dot(tempVector, pi_vec)
+    # compute pi^(k+1)
+    vec = np.multiply(ALPHA_CONST, H)
+    vec = np.dot(vec, pi_vec)
 
-    # compute the dotArticle (second part of the pi^(k+1) formula)
-    alphaD = np.multiply(ALPHA_CONST, d)
-    dotPi = np.dot(alphaD, pi_vec)
-    dotPi = dotPi + (1 - ALPHA_CONST)
-    dotArticle = np.multiply(dotPi, artical_vec)
+    alpha_d = np.multiply(ALPHA_CONST, d)
+    dot_pi = np.dot(alpha_d, pi_vec)
+    dot_pi = dot_pi + (1 - ALPHA_CONST)
+    dot_a = np.multiply(dot_pi, artical_vec)
 
     # get the new pi-vector
-    return tempVector + dotArticle
+    return vec + dot_a
 
 
 def converged(res):
-    # check if the change in any tau is less than the epsilon constant
-    # converged = True
     not_less_than = list(filter(lambda x: x >= EPSILON_CONST, res))
     return len(not_less_than) == 0
 
 
 def iterate(pi_vec, artical_vec, d, H):
-    # initial residuals to check against
+    # initial residuals
     res = [1] * NUM_OF_NODES
     count = 0
     while not converged(res):
