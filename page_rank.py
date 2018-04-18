@@ -29,7 +29,7 @@ def create_matrix_and_journal_keys():
             val = int(line[2])
             matrix[cited][citing] = val  # populate matrix,
             # with columns being the cited and rows being citing
-            journal_keys.append(line[1])  # add journal to journal_keys array
+            journal_keys.append(cited)  # add journal to journal_keys array
     return matrix, journal_keys
 
 
@@ -84,13 +84,13 @@ def converged(residual):
 # iterate equation, return the final pi_vecter and number of iterations
 def iterate(pi_vec, artical_vec, d, H):
     # initial residual
-    res = [1] * NUM_OF_NODES
+    residual = [1] * NUM_OF_NODES
     count = 0
-    while not converged(res):
+    while not converged(residual):
         # calculate new pi_vector
         pi_new = calc_pi(pi_vec, artical_vec, d, H)
         # calculate new residual
-        res = pi_new - pi_vec
+        residual = pi_new - pi_vec
         # let calculated pi_vecter become current, for the next iteration
         pi_vec = pi_new
         # increment iteration counter
@@ -182,4 +182,4 @@ if __name__ == "__main__":
 # 1212    0.311132
 # Name: Eiganfactor, dtype: float64
 # Number of iterations: 17
-# Total time taken: 24.0142 Secs
+# Total time taken: 22.8490 Secs
