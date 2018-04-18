@@ -104,6 +104,7 @@ def main():
     print("Start running...")
 
     ##############################   Data Input  ##############################
+
     # get initial matrix Z and array of all journals
     Z_matricx, journal_keys = create_matrix_and_journal_keys()
     # zero diagnals so it doesn't count self-citing
